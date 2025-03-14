@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">Tag</string>
-    <string name="new_game">New Game</string>
+    <string name="app_name">Пятнашки</string>
+    <string name="new_game">Новая игра</string>
+    <string name="pause_game">Пауза</string>
+    <string name="continue_game">Продолжить</string>
 </resources>

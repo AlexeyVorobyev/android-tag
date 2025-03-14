@@ -15,13 +15,70 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"/>
 
-    <Button
-        android:id="@+id/newGameButton"
-        android:layout_width="wrap_content"
+    <!-- Контейнер для кнопок и счетчиков -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_game"
-        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"/>
+        android:padding="16dp"
+        android:gravity="center">
+
+        <!-- Верхняя строка: Ходы и Время -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/moveCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:id="@+id/timeCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Нижняя строка: Кнопки -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/newGameButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/new_game"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/pauseButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pause_game"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+<!--    <Button-->
+<!--        android:id="@+id/newGameButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/new_game"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginBottom="32dp"/>-->
 
 </RelativeLayout>

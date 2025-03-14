@@ -15,6 +15,10 @@ import ru.lexxv.tag.viewmodel.GameViewModel
 class GameActivity : AppCompatActivity() {
     private lateinit var viewModel: GameViewModel
     private lateinit var gridLayout: GridLayout
+    private lateinit var moveCounter: TextView
+    private lateinit var timeCounter: TextView
+    private lateinit var pauseButton: Button
+
     private val spacing = 8
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +27,16 @@ class GameActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
         gridLayout = findViewById(R.id.gridLayout)
+        moveCounter = findViewById(R.id.moveCounter)
+        timeCounter = findViewById(R.id.timeCounter)
+        pauseButton = findViewById(R.id.pauseButton)
 
         setupObservers()
         findViewById<Button>(R.id.newGameButton).setOnClickListener {
             viewModel.resetGame()
+        }
+        findViewById<Button>(R.id.pauseButton).setOnClickListener {
+            viewModel.pause()
         }
 
         // Дожидаемся полной отрисовки макета
@@ -46,6 +56,20 @@ class GameActivity : AppCompatActivity() {
         }
         viewModel.moves.observe(this) { moves ->
             // Здесь можно обновить UI, показывающий количество ходов, если нужно.
+        }
+        viewModel.moves.observe(this) { moves ->
+            moveCounter.text = "Ходов: $moves"
+        }
+        viewModel.time.observe(this) { time ->
+            timeCounter.text = "Время: ${String.format("%.1f", time)}"
+        }
+        viewModel.isRunning.observe(this) { state ->
+            if (state) {
+                pauseButton.text = getString(R.string.pause_game)
+            }
+            else {
+                pauseButton.text = getString(R.string.continue_game)
+            }
         }
     }
 
