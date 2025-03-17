@@ -6,4 +6,6 @@
     <string name="stats_game">Статистика</string>
     <string name="stats_load_game">Загрузка статистики…</string>
     <string name="stats_back_game">Назад</string>
+    <string name="stats_reset">Сбросить статистику</string>
+    <string name="stats_empty">Статистика пуста</string>
 </resources>

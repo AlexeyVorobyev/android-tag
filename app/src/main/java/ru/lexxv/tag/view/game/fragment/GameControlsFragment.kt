@@ -41,6 +41,9 @@ class GameControlsFragment : Fragment() {
                 getString(R.string.continue_game)
             }
         }
+        viewModel.isWon.observe(viewLifecycleOwner) { state ->
+            pauseButton.isEnabled = !state
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

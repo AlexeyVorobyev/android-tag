@@ -12,4 +12,7 @@ interface GameStatsDao {
 
     @Query("SELECT * FROM game_stats ORDER BY time ASC")
     suspend fun getAllGameResults(): List<GameStats>
+
+    @Query("DELETE FROM game_stats")
+    suspend fun clearGameResults()
 }

@@ -15,4 +15,8 @@ class GameRepository(context: Context) {
     suspend fun getAllGameResults(): List<GameStats> {
         return gameStatsDao.getAllGameResults()
     }
+
+    suspend fun clearGameResults() {
+        gameStatsDao.clearGameResults()
+    }
 }

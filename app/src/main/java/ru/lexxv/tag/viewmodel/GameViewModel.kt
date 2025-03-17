@@ -73,7 +73,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun pause() {
-        if (_isRunning.value == true) {
+        if (model.getIsWon()) {
+            return
+        }
+
+        if (model.getIsRunning()) {
             stopTimer()
         } else {
             startTimer()

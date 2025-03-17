@@ -1,10 +1,6 @@
 package ru.lexxv.tag.model
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.lexxv.tag.components.TagResolvingInspector
-import ru.lexxv.tag.database.repository.GameRepository
 
 
 class GameModel {
