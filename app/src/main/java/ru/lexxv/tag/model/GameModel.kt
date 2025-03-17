@@ -17,6 +17,9 @@ class GameModel {
     private val resolvingInspector: TagResolvingInspector = TagResolvingInspector()
 
     private fun initialBoard(): Array<Array<Int>> {
+//        val numbers = (1..14).toMutableList() // Перемешиваем числа от 0 до 15
+//        numbers.add(0)
+//        numbers.add(15)
         val numbers = (0..15).shuffled()  // Перемешиваем числа от 0 до 15
         return Array(4) { row ->
             Array(4) { col -> numbers[row * 4 + col] }
@@ -28,6 +31,7 @@ class GameModel {
         time = 0.0F
         moves = 0
         isRunning = false
+        isWon = false
 
         val isResolvable = resolvingInspector.isResolvable(this)
 

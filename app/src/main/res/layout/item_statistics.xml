@@ -3,21 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center"
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/moveCounter"
-        android:layout_width="wrap_content"
+        android:id="@+id/movesTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ходов: 0"
-        android:textSize="22sp"
-        android:layout_marginEnd="32dp"/>
+        android:layout_weight="1"
+        android:text="Ходы: 0"
+        android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/timeCounter"
+        android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Время: 0.0"
-        android:textSize="22sp"/>
+        android:text="Время: 0.0 сек"
+        android:textSize="16sp"/>
 </LinearLayout>
