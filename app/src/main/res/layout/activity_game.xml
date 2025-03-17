@@ -1,94 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <GridLayout
-        android:id="@+id/gridLayout"
+    <!-- Фрагмент с игровым полем -->
+    <FrameLayout
+        android:id="@+id/fragment_container_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:columnCount="4"
-        android:rowCount="4"
-        android:background="@android:color/darker_gray"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"/>
 
-    <!-- Кнопка Статистика -->
-    <Button
-        android:id="@+id/statisticsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/stats_game"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/gridLayout"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Контейнер для кнопок и счетчиков -->
-    <LinearLayout
-        android:id="@+id/buttonContainer"
+    <!-- Фрагмент со статистикой (ходы, время) -->
+    <FrameLayout
+        android:id="@+id/fragment_container_stats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_below="@id/fragment_container_grid"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Фрагмент с кнопками управления -->
+    <FrameLayout
+        android:id="@+id/fragment_container_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="16dp"
-        android:gravity="center">
-
-        <!-- Верхняя строка: Ходы и Время -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/moveCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginEnd="32dp"/>
-
-            <TextView
-                android:id="@+id/timeCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"/>
-        </LinearLayout>
-
-        <!-- Нижняя строка: Кнопки -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/newGameButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/new_game"
-                android:layout_marginEnd="8dp"/>
-
-            <Button
-                android:id="@+id/pauseButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/pause_game"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-<!--    <Button-->
-<!--        android:id="@+id/newGameButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/new_game"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginBottom="32dp"/>-->
-
+        android:padding="16dp"/>
 </RelativeLayout>

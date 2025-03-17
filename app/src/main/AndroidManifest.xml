@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Tag"
         tools:targetApi="31">
         <activity android:name=".view.StatisticsActivity"
-            android:parentActivityName=".view.GameActivity">
+            android:parentActivityName=".view.game.GameActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.GameActivity"/>
+                android:value=".view.game.GameActivity"/>
         </activity>
         <activity
-            android:name=".view.GameActivity"
+            android:name=".view.game.GameActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

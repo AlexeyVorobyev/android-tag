@@ -80,7 +80,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun updateState() {
+    fun updateState() {
         _board.value = model.getBoard()
         _moves.value = model.getMoves()
         _time.value = model.getTime()
@@ -101,9 +101,22 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         isGameSaved = false
     }
 
-    fun makeMove(row: Int, col: Int) {
-        model.makeMove(row, col)
-        updateState()
+    fun makeMove(row: Int, col: Int): Pair<Int, Int>? {
+        val oldBoard = model.getBoard().map { it.clone() } // Сохраняем старое состояние
+        model.makeMove(row, col) // Пытаемся сделать ход
+
+        val newBoard = model.getBoard()
+
+        // Проверяем, куда передвинулась плитка
+        for (newRow in 0..3) {
+            for (newCol in 0..3) {
+                if (oldBoard[row][col] == newBoard[newRow][newCol] && (newRow != row || newCol != col)) {
+                    return Pair(newRow, newCol) // Возвращаем новую позицию плитки
+                }
+            }
+        }
+
+        return null // Если плитка не сдвинулась, возвращаем null
     }
 
     override fun onCleared() {
