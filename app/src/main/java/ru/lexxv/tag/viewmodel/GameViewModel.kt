@@ -1,18 +1,28 @@
 package ru.lexxv.tag.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.lexxv.tag.model.GameModel
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import ru.lexxv.tag.database.repository.GameRepository
 
-class GameViewModel : ViewModel() {
-    private val model = GameModel()
+class GameViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: GameRepository = GameRepository(application)
 
-    // LiveData для доски и количества ходов
-    private val _board = MutableLiveData<List<Int>>()
-    val board: LiveData<List<Int>> = _board
+    private val model: GameModel = GameModel()
+
+    private val _board = MutableLiveData<Array<Array<Int>>>()
+    val board: LiveData<List<Int>> = _board.map {
+        it.flatten()
+    }
 
     private val _moves = MutableLiveData<Int>()
     val moves: LiveData<Int> = _moves
@@ -20,25 +30,31 @@ class GameViewModel : ViewModel() {
     private val _time = MutableLiveData<Float>()
     val time: LiveData<Float> = _time
 
-    private var _isRunning = MutableLiveData<Boolean>()
+    private val _isRunning = MutableLiveData<Boolean>()
     val isRunning: LiveData<Boolean> = _isRunning
 
-    private val handler = Handler(Looper.getMainLooper())
-    private var elapsedTime = 0.0f
+    private val _isWon = MutableLiveData<Boolean>()
+    val isWon: LiveData<Boolean> = _isWon
 
+    private val handler = Handler(Looper.getMainLooper())
+
+    private var isGameSaved = false
 
     init {
-        _board.value = model.getBoard()
-        _moves.value = model.getMoves()
-        _time.value = 0.0f
-        _isRunning.value = model.getIsRunning()
+        updateState()
+    }
+
+    private fun saveGameResult() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.saveGameResult(model.getMoves(), model.getTime())
+        }
     }
 
     private val timeRunnable = object : Runnable {
         override fun run() {
             if (_isRunning.value!!) {
-                elapsedTime += 0.1f
-                _time.value = elapsedTime
+                model.incrementTime(0.1f)
+                _time.value = model.getTime()
                 handler.postDelayed(this, 100) // Обновление каждые 100 мс (0.1 сек)
             }
         }
@@ -57,10 +73,9 @@ class GameViewModel : ViewModel() {
     }
 
     fun pause() {
-        if (_isRunning.value!!) {
+        if (_isRunning.value == true) {
             stopTimer()
-        }
-        else {
+        } else {
             startTimer()
         }
     }
@@ -68,20 +83,26 @@ class GameViewModel : ViewModel() {
     private fun updateState() {
         _board.value = model.getBoard()
         _moves.value = model.getMoves()
+        _time.value = model.getTime()
         _isRunning.value = model.getIsRunning()
+        _isWon.value = model.getIsWon()
+
+        if (model.getIsWon() && !isGameSaved) {
+            saveGameResult()
+            isGameSaved = true
+        }
     }
 
     fun resetGame() {
         model.resetGame()
         stopTimer()
-        elapsedTime = 0.0f
-        _time.value = elapsedTime
         startTimer()
         updateState()
+        isGameSaved = false
     }
 
-    fun makeMove(position: Int) {
-        model.makeMove(position)
+    fun makeMove(row: Int, col: Int) {
+        model.makeMove(row, col)
         updateState()
     }
 

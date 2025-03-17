@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tag"
         tools:targetApi="31">
+        <activity android:name=".view.StatisticsActivity"
+            android:parentActivityName=".view.GameActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.GameActivity"/>
+        </activity>
         <activity
             android:name=".view.GameActivity"
             android:exported="true"
