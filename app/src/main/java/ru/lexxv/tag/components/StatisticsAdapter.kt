@@ -17,10 +17,12 @@ class StatisticsAdapter(context: Context, private val statsList: List<GameStats>
 
         val movesTextView: TextView = view.findViewById(R.id.movesTextView)
         val timeTextView: TextView = view.findViewById(R.id.timeTextView)
+        val userTextView: TextView = view.findViewById(R.id.userTextView)
 
         val stat = statsList[position]
-        movesTextView.text = "Ходы: ${stat.moves}"
-        timeTextView.text = "Время: ${String.format("%.1f", stat.time)} сек"
+        movesTextView.text = "${stat.moves}"
+        timeTextView.text = "${String.format("%.1f", stat.time)} сек"
+        userTextView.text = stat.userName
 
         return view
     }

@@ -12,22 +12,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tag"
         tools:targetApi="31">
-        <activity android:name=".view.StatisticsActivity"
-            android:parentActivityName=".view.game.GameActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.game.GameActivity"/>
-        </activity>
+
+        <!-- Главная активность (LoginActivity) -->
         <activity
-            android:name=".view.game.GameActivity"
+            android:name=".view.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Статистика -->
+        <activity
+            android:name=".view.StatisticsActivity"
+            android:parentActivityName=".view.game.GameActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.game.GameActivity" />
+        </activity>
+
+        <!-- Игровая активность -->
+        <activity
+            android:name=".view.game.GameActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

@@ -8,8 +8,8 @@ class GameRepository(context: Context) {
     private val db = GameDatabase.getDatabase(context)
     private val gameStatsDao = db.gameStatsDao()
 
-    suspend fun saveGameResult(moves: Int, time: Float) {
-        gameStatsDao.insertGameResult(GameStats(moves = moves, time = time))
+    suspend fun saveGameResult(moves: Int, time: Float, userName: String) {
+        gameStatsDao.insertGameResult(GameStats(moves = moves, time = time, userName = userName))
     }
 
     suspend fun getAllGameResults(): List<GameStats> {

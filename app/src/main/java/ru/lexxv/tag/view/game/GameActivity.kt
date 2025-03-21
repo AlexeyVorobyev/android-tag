@@ -14,15 +14,24 @@ import androidx.fragment.app.commit
 
 class GameActivity : AppCompatActivity() {
     lateinit var viewModel: GameViewModel
+    private var isShownWon: Boolean = false
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.realPause()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-
-        val factory = GameViewModelFactory(application)
-        viewModel = ViewModelProvider(this, factory).get(GameViewModel::class.java)
-
         if (savedInstanceState == null) {
+            val factory = GameViewModelFactory(application)
+            viewModel = ViewModelProvider(this, factory).get(GameViewModel::class.java)
+
+            val inputText = intent.getStringExtra("INPUT_TEXT")
+
+            viewModel.setUser(inputText ?: "UNKNOWN")
+
             supportFragmentManager.commit {
                 replace(R.id.fragment_container_grid, GameGridFragment())
                 replace(R.id.fragment_container_stats, GameStatsFragment())
@@ -31,13 +40,14 @@ class GameActivity : AppCompatActivity() {
         }
 
         viewModel.isWon.observe(this) { isWon ->
-            if (isWon) {
+            if (isWon && !isShownWon) {
                 // Показать сообщение о победе, например:
                 AlertDialog.Builder(this)
                     .setTitle("Победа!")
-                    .setMessage("Вы собрали головоломку за ${viewModel.moves.value} ходов")
+                    .setMessage("Вы, ${viewModel.getUser()} собрали головоломку за ${viewModel.moves.value} ходов")
                     .setPositiveButton("OK") { _, _ -> }
                     .show()
+                isShownWon = true
             }
         }
     }

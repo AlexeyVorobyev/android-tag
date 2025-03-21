@@ -19,6 +19,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     private val model: GameModel = GameModel()
 
+    private var currentUser: String = "UNKNOWN"
+
     private val _board = MutableLiveData<Array<Array<Int>>>()
     val board: LiveData<List<Int>> = _board.map {
         it.flatten()
@@ -44,9 +46,19 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         updateState()
     }
 
+    fun setUser(user: String) {
+        currentUser = user
+    }
+
+    fun getUser() = currentUser
+
     private fun saveGameResult() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.saveGameResult(model.getMoves(), model.getTime())
+            repository.saveGameResult(
+                model.getMoves(),
+                model.getTime(),
+                currentUser
+            )
         }
     }
 
@@ -70,6 +82,10 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         model.pause()
         handler.removeCallbacks(timeRunnable)
         updateState()
+    }
+
+    fun realPause() {
+        stopTimer()
     }
 
     fun pause() {

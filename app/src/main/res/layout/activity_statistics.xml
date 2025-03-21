@@ -16,6 +16,40 @@
         android:visibility="gone"
         android:padding="16dp"/>
 
+    <!-- Заголовок для списка -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ходы"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Пользователь"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Время"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+    </TableRow>
+
     <ListView
         android:id="@+id/statsListView"
         android:layout_width="match_parent"
